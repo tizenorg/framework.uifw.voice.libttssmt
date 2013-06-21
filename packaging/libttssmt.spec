@@ -6,7 +6,7 @@
 
 Name:       libttssmt
 Summary:    Text To Speech smt plugin shared library
-Version:    0.0.32
+Version:    0.1.1
 Release:    1
 Group:      TO_BE/FILLED_IN
 License:    TO_BE/FILLED_IN
@@ -35,7 +35,9 @@ rm -rf %{buildroot}
 
 %files
 %manifest libttssmt.manifest
+/etc/smack/accesses2.d/libttssmt.rule
 %defattr(-,root,root,-)
 %{_libdir}/voice/tts/1.0/engine/*
 /usr/share/voice/tts/smt_vdata/*
 %{_libdir}/libsmt.so*
+%{_libdir}/voice/tts/1.0/engine-info/ttssmt-info.xml

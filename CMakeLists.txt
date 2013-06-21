@@ -73,3 +73,5 @@ ENDIF("${ARCH}" MATCHES "^arm.*")
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION ${LIBDIR} COMPONENT RuntimeLibraries)
 INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vdata/ DESTINATION /usr/share/voice/tts/smt_vdata)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/libttssmt.rule DESTINATION  /etc/smack/accesses2.d)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/ttssmt-info.xml DESTINATION /usr/lib/voice/tts/1.0/engine-info/)

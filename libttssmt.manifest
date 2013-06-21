@@ -44,5 +44,7 @@
 		<filesystem path="/usr/share/voice/tts/smt_vdata/smt_ko_KR_f02.cfg" label="tts-engine-samsung::vdata"/>
 		<filesystem path="/usr/share/voice/tts/smt_vdata/smt_ko_KR_f02.dt" label="tts-engine-samsung::vdata"/>
 		<filesystem path="/usr/share/voice/tts/smt_vdata/smt_ko_KR_f02.qs" label="tts-engine-samsung::vdata"/>
+
+		<filesystem path="/usr/lib/voice/tts/1.0/engine-info/ttssmt-info.xml" label="_"/>
 	</assign>
 </manifest>
