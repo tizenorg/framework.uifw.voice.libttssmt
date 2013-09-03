@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <unistd.h>
 #include <pthread.h>
 
 
@@ -325,7 +325,9 @@ int SLPSMT_Finalize(void)
   _g.pfnCallback  = NULL;
   _g.eSpeechSpeed = TTSP_SPEED_NORMAL;
   _g.iVoiceInfo   = -1;
-  _g.ThreadId     = -1;
+while(_g.ThreadId != -1){
+	usleep(10000);
+}
 
   printf(">>>> SLPSMT_Finalize() returns.\n");
   return TTSP_ERROR_NONE;
@@ -574,7 +576,12 @@ static void _CallBack(ttsp_result_event_e eEvent, unsigned int const nPCMs, void
   printf(">>> data size = %d\n", n);
   printf(">> >> Here we jump into the callback function.\n");
 
-  int const cbreturn = _g.pfnCallback(eEvent, pPCMs, n, pUserParam);
+  int cbreturn = -1;
+if(eEvent == TTSP_RESULT_EVENT_CANCEL){
+// do nothing.
+} else if(_g.pfnCallback != NULL){
+	cbreturn = _g.pfnCallback(eEvent, pPCMs, n, pUserParam);
+}
   printf(">> >> Here we return from the callback function.\n");
   printf(">> >> callback function return value = %d\n", cbreturn);
   if (-1 == cbreturn)
@@ -605,7 +612,7 @@ static int _Synthesize_SamsungTTS(char const * const pszTextUtf8, void* pUserPar
     if (_g.bStop)
     {
       _CleanThreadData();
-      _CallBack(TTSP_RESULT_EVENT_CANCEL, i, pPcmBuffer, pUserParam);
+//      _CallBack(TTSP_RESULT_EVENT_CANCEL, i, pPcmBuffer, pUserParam);
       break;
     }
     else
