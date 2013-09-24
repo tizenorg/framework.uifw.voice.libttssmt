@@ -32,6 +32,8 @@ make %{?jobs:-j%jobs}
 %install
 rm -rf %{buildroot}
 %make_install
+mkdir -p %{buildroot}/usr/share/license
+cp %{_builddir}/%{name}-%{version}/LICENSE.Flora %{buildroot}/usr/share/license/%{name}
 
 %files
 %manifest libttssmt.manifest
@@ -41,3 +43,4 @@ rm -rf %{buildroot}
 /usr/share/voice/tts/smt_vdata/*
 %{_libdir}/libsmt.so*
 %{_libdir}/voice/tts/1.0/engine-info/ttssmt-info.xml
+/usr/share/license/%{name}
