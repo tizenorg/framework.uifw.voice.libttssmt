@@ -35,7 +35,7 @@ typedef char*	ttspe_language;
 
 typedef struct {
 	ttspe_language    lang;    /**< Language */
-	ttsp_voice_type_e vctype;  /**< Voice type */
+	int vctype;  /**< Voice type */
 } ttspe_voice_info_s;
 
 typedef struct {
@@ -50,9 +50,9 @@ int plugin_Finalize(void);
 int plugin_SynthesizeText
 (
   char    const   *pszLanguage,
-  ttsp_voice_type_e const   eVoiceType,
+  int const   eVoiceType,
   char              const * pszTextUtf8,
-  ttsp_speed_e     const   eSpeechSpeed,
+  int     const   eSpeechSpeed,
   void                    * pUserParam
 );
 
@@ -60,13 +60,13 @@ int plugin_StopSynthesis(void);
 
 int plugin_ForeachVoices(ttspe_supported_voice_cb callback, void* user_data);
 
-bool plugin_IsValidVoice(const char* language, ttsp_voice_type_e type);
+bool plugin_IsValidVoice(const char* language, int type);
 
-int plugin_SetDefaultSpeechSpeed(ttsp_speed_e const  SpeechSpeed);
+int plugin_SetDefaultSpeechSpeed(int const  SpeechSpeed);
 
-int plugin_LoadVoice(const char* language, ttsp_voice_type_e type);
+int plugin_LoadVoice(const char* language, int type);
 
-int plugin_UnloadVoice(const char* language, ttsp_voice_type_e type);
+int plugin_UnloadVoice(const char* language, int type);
 
 void plugin_SetDaemonAPIs (ttspd_funcs_s const * pAPIs);
 

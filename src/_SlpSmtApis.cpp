@@ -54,7 +54,7 @@ struct __TypeVoiceInfo
 {
   char const         * const pszLanguage;
   unsigned int          const sszLanguage;
-  ttsp_voice_type_e const eVoiceType;
+  int const eVoiceType;
 
 };
 
@@ -110,7 +110,7 @@ struct _TypeThreadQueueNode
 static struct _global
 {
   ttspe_result_cb      pfnCallback;
-  ttsp_speed_e        eSpeechSpeed;
+  int        eSpeechSpeed;
   int                  iVoiceInfo;
   bool                 bStop;
   bool                 bSentenceDone;
@@ -213,7 +213,7 @@ ttspe_voice_info_s * _gpVoiceInfos  = NULL;
 #define DATA_DIR1  "/usr/share/voice/tts/smt_vdata/"
 
 
-int SLPSMT_GetiVoiceInfoEx(char const *pszLanguage, ttsp_voice_type_e const eVoiceType)
+int SLPSMT_GetiVoiceInfoEx(char const *pszLanguage, int const eVoiceType)
 {
 	int i;
 	for (i=0 ; i<_nVoiceInfos ; i++)
@@ -263,20 +263,30 @@ int SLPSMT_SetVoiceList(ttspe_voice_list_s * p)
   return TTSP_ERROR_NONE;
 }
 
-void SLPSMT_SetSpeechSpeed(ttsp_speed_e const eSpeechSpeed)
+void SLPSMT_SetSpeechSpeed(int const eSpeechSpeed)
 {
-  switch (eSpeechSpeed)
-  {
-    case TTSP_SPEED_VERY_FAST :
-    case TTSP_SPEED_FAST      :
-    case TTSP_SPEED_SLOW      :
-    case TTSP_SPEED_VERY_SLOW :
-    case TTSP_SPEED_NORMAL    : _g.eSpeechSpeed = eSpeechSpeed;       break;
-    default                    : _g.eSpeechSpeed = TTSP_SPEED_NORMAL; break;
+  int level = -1;
+
+  if (eSpeechSpeed == 0) {
+    level = TTSP_SPEED_NORMAL;
+  } else if (eSpeechSpeed >= 1 && eSpeechSpeed <= 3) {
+    level = 2;
+  } else if (eSpeechSpeed >= 4 && eSpeechSpeed <= 6) {
+	level = 5;
+  } else if (eSpeechSpeed >= 7 && eSpeechSpeed <= 9) {
+	level = 8;
+  } else if (eSpeechSpeed >= 10 && eSpeechSpeed <= 12) {
+	level = 11;
+  } else if (eSpeechSpeed >= 13 && eSpeechSpeed <= 15) {
+	level = 14;
+  } else {
+	level = 8;
   }
+
+  _g.eSpeechSpeed = level;
 }
 
-int SLPSMT_GetiVoiceInfo(char const *pszLanguage, ttsp_voice_type_e const eVoiceType)
+int SLPSMT_GetiVoiceInfo(char const *pszLanguage, int const eVoiceType)
 {
   int i;
   for (i=0 ; i<_nVoiceInfos ; i++)
@@ -513,10 +523,10 @@ static void _SetSpeechSpeed(void)
 {
     switch (_g.eSpeechSpeed)
     {
-      case TTSP_SPEED_VERY_FAST : SMTSetSpeechSpeed(eSMTSpeechSpeed_VeryFast);  break;
-      case TTSP_SPEED_FAST      : SMTSetSpeechSpeed(eSMTSpeechSpeed_Fast    );  break;
-      case TTSP_SPEED_SLOW      : SMTSetSpeechSpeed(eSMTSpeechSpeed_Slow    );  break;
-      case TTSP_SPEED_VERY_SLOW : SMTSetSpeechSpeed(eSMTSpeechSpeed_VerySlow);  break;
+      case 14	: SMTSetSpeechSpeed(eSMTSpeechSpeed_VeryFast);  break;
+      case 11	: SMTSetSpeechSpeed(eSMTSpeechSpeed_Fast    );  break;
+      case 5	: SMTSetSpeechSpeed(eSMTSpeechSpeed_Slow    );  break;
+      case 2	: SMTSetSpeechSpeed(eSMTSpeechSpeed_VerySlow);  break;
       case TTSP_SPEED_NORMAL    : SMTSetSpeechSpeed(eSMTSpeechSpeed_Normal  );  break;
     }
 }

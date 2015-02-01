@@ -25,11 +25,7 @@ Description: Text To Speech smt plugin shared library
 %prep
 %setup -q
 
-%if "%{_repository}" == "wearable"
-cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_PROFILE="wearable"
-%else
-cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_PROFILE="mobile"
-%endif
+cmake . -DCMAKE_INSTALL_PREFIX=%{_prefix}
 
 %build
 make %{?jobs:-j%jobs}
@@ -42,11 +38,7 @@ cp %{_builddir}/%{name}-%{version}/LICENSE.Flora %{buildroot}/usr/share/license/
 
 %files
 %manifest libttssmt.manifest
-%if "%{_repository}" == "wearable"
-/etc/smack/accesses2.d/libttssmt.rule
-%else
 /etc/smack/accesses.d/libttssmt.rule
-%endif
 %defattr(-,root,root,-)
 %{_libdir}/voice/tts/1.0/engine/*
 /usr/share/voice/tts/smt_vdata/*

@@ -41,12 +41,12 @@ int plugin_Finalize(void)
 	return r;
 }
 
-int plugin_SynthesizeText(char const *pszLanguage, ttsp_voice_type_e eVoiceType_0,  char const *pszTextUtf8,
-			ttsp_speed_e eSpeechSpeed_0, void* pUserParam)
+int plugin_SynthesizeText(char const *pszLanguage, int eVoiceType_0,  char const *pszTextUtf8,
+			int eSpeechSpeed_0, void* pUserParam)
 {
 	int               iVoiceInfo   = -1;
-	ttsp_voice_type_e eVoiceType   = eVoiceType_0;
-	ttsp_speed_e     eSpeechSpeed = eSpeechSpeed_0;
+	int eVoiceType   = eVoiceType_0;
+	int     eSpeechSpeed = eSpeechSpeed_0;
 
 	int ThreadId = SLPSMT_GetWorkingThreadId();
 	printf(">>>plugin SynthesizeText()\n");
@@ -58,42 +58,15 @@ int plugin_SynthesizeText(char const *pszLanguage, ttsp_voice_type_e eVoiceType_
 	printf(">>>  ThreadId = %d\n", ThreadId);
 	printf(">>>  pUserParam = 0x%x\n", (unsigned int) pUserParam);
 
-	printf(">>>  eSpeechSpeed = %s\n", //eSpeechSpeed==TTSPE_SPEED_DEFAULT   ? "TTSPE_SPEED_DEFAULT"   :
-				     eSpeechSpeed==TTSP_SPEED_VERY_FAST ? "TTSP_SPEED_VERY_FAST" :
-				     eSpeechSpeed==TTSP_SPEED_FAST      ? "TTSP_SPEED_FAST"      :
-				     eSpeechSpeed==TTSP_SPEED_NORMAL    ? "TTSP_SPEED_NORMAL"    :
-				     eSpeechSpeed==TTSP_SPEED_SLOW      ? "TTSP_SPEED_SLOW"      :
-				     eSpeechSpeed==TTSP_SPEED_VERY_SLOW ? "TTSP_SPEED_VERY_SLOW" : ""
-	);
+	printf(">>>  eSpeechSpeed = %d\n", eSpeechSpeed);
 	printf(">>>  pszLanguage  = %s\n", pszLanguage);
 	printf(">>>  eVoiceType   = %s\n", //eVoiceType==TTSPE_VCTYPE_DEFAULT ? "TTSPE_VCTYPE_DEFAULT" :
 				     eVoiceType==TTSP_VOICE_TYPE_MALE    ? "TTSP_VOICE_TYPE_MALE"    :
 				     eVoiceType==TTSP_VOICE_TYPE_FEMALE  ? "TTSP_VOICE_TYPE_FEMALE"  :
-				     eVoiceType==TTSP_VOICE_TYPE_CHILD   ? "TTSP_VOICE_TYPE_CHILD"   :
-				     eVoiceType==TTSP_VOICE_TYPE_USER1   ? "TTSP_VOICE_TYPE_USER1"   :
-				     eVoiceType==TTSP_VOICE_TYPE_USER2   ? "TTSP_VOICE_TYPE_USER2"   :
-				     eVoiceType==TTSP_VOICE_TYPE_USER3   ? "TTSP_VOICE_TYPE_USER3"   : ""
+				     eVoiceType==TTSP_VOICE_TYPE_CHILD   ? "TTSP_VOICE_TYPE_CHILD"   : ""
 	);
 
 	SLPSMT_SetSpeechSpeed(eSpeechSpeed);
-
-	printf(">>>  \n");
-	printf(">>>  eSpeechSpeed = %s\n", //eSpeechSpeed==TTSP_SPEED_DEFAULT   ? "TTSPE_SPEED_DEFAULT"   :
-				     eSpeechSpeed==TTSP_SPEED_VERY_FAST ? "TTSPE_SPEED_VERY_FAST" :
-				     eSpeechSpeed==TTSP_SPEED_FAST      ? "TTSPE_SPEED_FAST"      :
-				     eSpeechSpeed==TTSP_SPEED_NORMAL    ? "TTSPE_SPEED_NORMAL"    :
-				     eSpeechSpeed==TTSP_SPEED_SLOW      ? "TTSPE_SPEED_SLOW"      :
-				     eSpeechSpeed==TTSP_SPEED_VERY_SLOW ? "TTSPE_SPEED_VERY_SLOW" : ""
-	);
-	printf(">>>  pszLanguage  = %s\n", pszLanguage);
-	printf(">>>  eVoiceType   = %s\n", //eVoiceType==TTSPE_VCTYPE_DEFAULT ? "TTSPE_VCTYPE_DEFAULT" :
-				     eVoiceType==TTSP_VOICE_TYPE_MALE    ? "TTSPE_VCTYPE_MALE"    :
-				     eVoiceType==TTSP_VOICE_TYPE_FEMALE  ? "TTSPE_VCTYPE_FEMALE"  :
-				     eVoiceType==TTSP_VOICE_TYPE_CHILD   ? "TTSPE_VCTYPE_CHILD"   :
-				     eVoiceType==TTSP_VOICE_TYPE_USER1   ? "TTSPE_VCTYPE_USER1"   :
-				     eVoiceType==TTSP_VOICE_TYPE_USER2   ? "TTSPE_VCTYPE_USER2"   :
-				     eVoiceType==TTSP_VOICE_TYPE_USER3   ? "TTSPE_VCTYPE_USER3"   : ""
-	);
 
 	// set voice
 	iVoiceInfo = SLPSMT_GetiVoiceInfoEx(pszLanguage, eVoiceType);
@@ -135,7 +108,7 @@ int plugin_ForeachVoices(ttspe_supported_voice_cb callback, void* user_data)
 	return TTSP_ERROR_NONE;
 }
 
-bool plugin_IsValidVoice(const char* language, ttsp_voice_type_e type)
+bool plugin_IsValidVoice(const char* language, int type)
 {
 	if (NULL == language)
 		return TTSP_ERROR_INVALID_PARAMETER;
@@ -151,12 +124,12 @@ bool plugin_IsValidVoice(const char* language, ttsp_voice_type_e type)
 	return true;
 }
 
-int plugin_LoadVoice(const char* language, ttsp_voice_type_e type)
+int plugin_LoadVoice(const char* language, int type)
 {
 	return 0;
 }
 
-int plugin_UnloadVoice(const char* language, ttsp_voice_type_e type)
+int plugin_UnloadVoice(const char* language, int type)
 {
 	return 0;
 }

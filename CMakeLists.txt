@@ -74,11 +74,7 @@ ENDIF("${ARCH}" MATCHES "^arm.*")
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION ${LIBDIR} COMPONENT RuntimeLibraries)
 INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/vdata/ DESTINATION /usr/share/voice/tts/smt_vdata)
 
-IF(${CMAKE_BUILD_PROFILE} STREQUAL "wearable")
-    SET(SMACK_RULE_PATH "/etc/smack/accesses2.d")
-ELSE()
-    SET(SMACK_RULE_PATH "/etc/smack/accesses.d")
-ENDIF()
+SET(SMACK_RULE_PATH "/etc/smack/accesses.d")
 
 INSTALL(FILES ${CMAKE_SOURCE_DIR}/libttssmt.rule DESTINATION ${SMACK_RULE_PATH})
 INSTALL(FILES ${CMAKE_SOURCE_DIR}/ttssmt-info.xml DESTINATION /usr/lib/voice/tts/1.0/engine-info/)
