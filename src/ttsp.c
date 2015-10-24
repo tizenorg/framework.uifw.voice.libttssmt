@@ -70,7 +70,6 @@ void ttsp_unload_engine(void)
 
 int ttsp_get_engine_info(ttsp_engine_info_cb callback, void* user_data)
 {
-
 	callback(ENGINE_UUID, ENGINE_NAME, ENGINE_UG_NAME, false, user_data);
 
 	return 0;

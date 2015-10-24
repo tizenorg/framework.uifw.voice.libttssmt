@@ -25,8 +25,7 @@ INCLUDE_DIRECTORIES(${INCLUDEDIRGLIB})
 ## Dependent packages ##
 INCLUDE(FindPkgConfig)
 pkg_check_modules(pkgs REQUIRED 
-		glib-2.0
-		tts
+		tts-engine
 )
 
 FOREACH(flag ${pkgs_CFLAGS})

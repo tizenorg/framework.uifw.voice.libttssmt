@@ -127,7 +127,7 @@ static struct _global
 {
   NULL                     , // pfnCallback
 
-  TTSP_SPEED_NORMAL       , // eSpeechSpeed
+  8			   , // eSpeechSpeed
   -1                       , // iVoiceInfo, initial value means INVALID INDEX
   false                    , // bStop
   true                     , // bSentenceDone
@@ -268,7 +268,8 @@ void SLPSMT_SetSpeechSpeed(int const eSpeechSpeed)
   int level = -1;
 
   if (eSpeechSpeed == 0) {
-    level = TTSP_SPEED_NORMAL;
+//    level = TTSP_SPEED_NORMAL;
+	  level = 8;
   } else if (eSpeechSpeed >= 1 && eSpeechSpeed <= 3) {
     level = 2;
   } else if (eSpeechSpeed >= 4 && eSpeechSpeed <= 6) {
@@ -333,7 +334,8 @@ int SLPSMT_Finalize(void)
   }
 
   _g.pfnCallback  = NULL;
-  _g.eSpeechSpeed = TTSP_SPEED_NORMAL;
+  //_g.eSpeechSpeed = TTSP_SPEED_NORMAL;
+  _g.eSpeechSpeed = 8;
   _g.iVoiceInfo   = -1;
 while(_g.ThreadId != -1){
 	usleep(10000);
@@ -527,7 +529,8 @@ static void _SetSpeechSpeed(void)
       case 11	: SMTSetSpeechSpeed(eSMTSpeechSpeed_Fast    );  break;
       case 5	: SMTSetSpeechSpeed(eSMTSpeechSpeed_Slow    );  break;
       case 2	: SMTSetSpeechSpeed(eSMTSpeechSpeed_VerySlow);  break;
-      case TTSP_SPEED_NORMAL    : SMTSetSpeechSpeed(eSMTSpeechSpeed_Normal  );  break;
+      //case TTSP_SPEED_NORMAL    : SMTSetSpeechSpeed(eSMTSpeechSpeed_Normal  );  break;
+      case 8	: SMTSetSpeechSpeed(eSMTSpeechSpeed_Normal);  break;
     }
 }
 

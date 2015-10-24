@@ -2,7 +2,6 @@
 %define _appdir	%{_optdir}/apps
 
 
-
 Name:       libttssmt
 Summary:    Text To Speech smt plugin shared library
 Version:    0.1.2
@@ -11,8 +10,6 @@ Group:      Graphics & UI Framework/Voice Framework
 License:    Flora-1.1
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires:  cmake
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(tts)
 BuildRequires:	pkgconfig(tts-engine)
 
 provides : libsmt.so
